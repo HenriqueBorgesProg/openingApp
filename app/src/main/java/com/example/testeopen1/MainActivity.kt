@@ -1,25 +1,46 @@
-
 package com.example.testeopen1
 
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import android.content.Context
-import com.example.testeopen1.AlarmScheduler
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
+    // Define the time range during which the app cannot be accessed
+    private val startHour = 22 // 22:00 (10 PM)
+    private val endHour = 6   // 06:00 (6 AM)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Check if the current time is within the restricted time range
+        if (isRestrictedTime()) {
+            // Show a message and close the activity
+            Toast.makeText(this, "O aplicativo não pode ser acessado neste horário.", Toast.LENGTH_LONG).show()
+            finish() // Close the Activity
+            return
+        }
+
+        // If it's within the allowed time, load the Activity normally
         setContentView(R.layout.activity_main)
 
-        // Define the time to open the app (e.g., 9 AM)
-        val hour = 13 // Example time to open the app (9 AM)
-        val minute = 36 // Example time to open the app (0th minute)
-
-        // Schedule the alarm using the AlarmScheduler
+        // Schedule the alarm (optional, if you want to schedule the alarm in this activity)
+        val hour = 14 // Example: open the app at 9 AM
+        val minute = 18
         AlarmScheduler.scheduleAlarm(this, "com.example.OPEN_APP", hour, minute)
+    }
 
-        Log.d("MainActivity", "Alarm scheduled for $hour:$minute")
+    // Function to check if the current time is within the restricted range
+    private fun isRestrictedTime(): Boolean {
+        val calendar = Calendar.getInstance()
+        val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
+
+        // Check if the current time is within the restricted time range
+        return if (startHour < endHour) {
+            currentHour in startHour until endHour
+        } else {
+            currentHour >= startHour || currentHour < endHour
+        }
     }
 }
