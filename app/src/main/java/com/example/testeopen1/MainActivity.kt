@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
 
     // Define the time range during which the app cannot be accessed
     private val startHour = 22 // 22:00 (10 PM)
-    private val endHour = 6   // 06:00 (6 AM)
+    private val endHour =   6 // 06:00 (6 AM)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +25,9 @@ class MainActivity : AppCompatActivity() {
         // If it's within the allowed time, load the Activity normally
         setContentView(R.layout.activity_main)
 
-        // Schedule the alarm (optional, if you want to schedule the alarm in this activity)
-        val hour = 14 // Example: open the app at 9 AM
-        val minute = 18
+        // Schedule the alarm to block the app at 10 PM (22:00)
+        val hour = 11 // Block at 10 PM
+        val minute = 0
         AlarmScheduler.scheduleAlarm(this, "com.example.OPEN_APP", hour, minute)
     }
 
@@ -38,9 +38,9 @@ class MainActivity : AppCompatActivity() {
 
         // Check if the current time is within the restricted time range
         return if (startHour < endHour) {
-            currentHour in startHour until endHour
+            currentHour in startHour until 24 || currentHour in 0 until endHour
         } else {
-            currentHour >= startHour || currentHour < endHour
+            currentHour in startHour until endHour
         }
     }
 }

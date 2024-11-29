@@ -1,12 +1,12 @@
 package com.example.testeopen1
 
-
 import android.app.AlarmManager
 import android.content.Context
 import android.content.Intent
 import android.app.PendingIntent
 import android.util.Log
 import android.provider.Settings
+import java.util.Calendar
 
 object AlarmScheduler {
     fun scheduleAlarm(context: Context, action: String, hour: Int, minute: Int) {
@@ -22,10 +22,10 @@ object AlarmScheduler {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
 
-            val calendar = java.util.Calendar.getInstance().apply {
-                set(java.util.Calendar.HOUR_OF_DAY, hour)
-                set(java.util.Calendar.MINUTE, minute)
-                set(java.util.Calendar.SECOND, 0)
+            val calendar = Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, hour)
+                set(Calendar.MINUTE, minute)
+                set(Calendar.SECOND, 0)
             }
 
             try {
@@ -35,7 +35,7 @@ object AlarmScheduler {
                     calendar.timeInMillis,
                     pendingIntent
                 )
-                Log.d("AlarmScheduler", "Exact alarm scheduled successfully.")
+                Log.d("AlarmScheduler", "Exact alarm scheduled successfully at $hour:$minute.")
             } catch (e: SecurityException) {
                 Log.e("AlarmScheduler", "SecurityException: ${e.message}")
                 // Handle the exception gracefully or request permission from the user
