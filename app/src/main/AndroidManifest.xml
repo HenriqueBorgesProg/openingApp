@@ -4,7 +4,7 @@
 
     <!-- Permission to receive BOOT_COMPLETED for rescheduling alarms after reboot -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 
     <!-- Permission to bind device admin -->
     <uses-permission android:name="android.permission.BIND_DEVICE_ADMIN" />
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
 
-        <!-- Receiver for Time-based App Blocking -->
+        <!-- Receiver for Time-based App Blocking and App Initialization -->
         <receiver
             android:name=".TimeReceiver"
             android:enabled="true"
@@ -35,6 +35,7 @@
             <intent-filter>
                 <action android:name="com.example.OPEN_APP" />
                 <action android:name="com.example.CLOSE_APP" />
+                <action android:name="com.example.testeopen1.ALARM_ACTION" />
             </intent-filter>
         </receiver>
 
@@ -57,4 +58,5 @@
 
     </application>
 </manifest>
+
 

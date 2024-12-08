@@ -41,7 +41,7 @@ class TimeReceiver : BroadcastReceiver() {
 
         // Define restricted time range: Block between 9 PM and 7 AM
         val startHour = 21  // 9 PM
-        val endHour = 10   // 7 AM
+        val endHour = 10  // 7 AM
 
         return currentHour in startHour..23 || currentHour in 0..endHour
     }
@@ -76,5 +76,12 @@ class TimeReceiver : BroadcastReceiver() {
         }
     }
 }
+
+
+
+
+
+
+
 
 
